@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  namespace: morgan-elk
+  namespace: efk
   name: elasticsearch-master
   labels:
     app: elasticsearch
@@ -58,7 +58,7 @@ spec:
             fieldRef:
               fieldPath: metadata.name
         - name: "cluster.name"
-          value: "morgan-elk"
+          value: "efk"
         - name: node.master
           value: "true"
         - name: node.ingest
@@ -72,13 +72,13 @@ spec:
         - name: discovery.zen.minimum_master_nodes
           value: "2"
         - name: discovery.zen.ping.unicast.hosts
-          value: "es-master-transport.morgan-elk.svc.cluster.local"	  
+          value: "es-master-transport.efk.svc.cluster.local"	  
         - name: "ES_JAVA_OPTS"
           value: "-Xms512m -Xmx512m"
         - name: "ELASTIC_PASSWORD"
           valueFrom:
             secretKeyRef:
-              name: morgan-elk-password
+              name: efk-password
               key: elastic-password
         ports:
         - containerPort: 9300
@@ -109,7 +109,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: morgan-elk
+  namespace: efk
   name: es-master-transport
   labels:
     component: elasticsearch
@@ -127,7 +127,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: morgan-elk
+  namespace: efk
   name: es-master-http
   labels:
     app: elasticsearch
