@@ -1,13 +1,13 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  namespace: morgan-elk
+  namespace: efk
   name: elk-ingress
   annotations:    
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - host: psobai-elk-test.eastus.cloudapp.azure.com
+  - host: <LOADBALANCE_DNS_NAME>
     http:
       paths:
       - path: /
