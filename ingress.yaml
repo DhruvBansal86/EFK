@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: morgan-elk
+  name: elk-ingress
+  annotations:    
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: psobai-elk-test.eastus.cloudapp.azure.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: kibana
+          servicePort: 5601
+      - path: /elasticsearch
+        backend:
+          serviceName: es-master-http
+          servicePort: 9200
