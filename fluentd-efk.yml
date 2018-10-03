@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
   name: fluentd
-  namespace: morgan-elk
+  namespace: efk
   labels:
     k8s-app: fluentd-logging
     version: v1
@@ -22,20 +22,18 @@ spec:
       - name: regcred
       containers:
       - name: fluentd
-        image: dhruvbansal86/version1
+        image: fluent/fluentd-kubernetes-daemonset:elasticsearch
         env:
-          - name:  FLUENT_ELASTICSEARCH_HOST
-            value: "es-master-http"
-          - name:  FLUENT_ELASTICSEARCH_PORT
-            value: "9200"
-          - name: FLUENT_ELASTICSEARCH_SCHEME
-            value: "http"
+          - name:  FLUENT_ELASTICSEARCH_HOSTS
+            value: "http://elastic:elastic@es-master-http:9200"
           - name: FLUENT_UID
             value: "0"
+          - name: FLUENT_ELASTICSEARCH_USER
+            value: "elastic"
           - name: "ELASTICSEARCH_PASSWORD"
             valueFrom:
               secretKeyRef:
-                name: morgan-elk-password
+                name: efk-password
                 key: elastic-password
         resources:
           limits:
