@@ -1,7 +1,7 @@
 apiVersion: apps/v1beta1
 kind: StatefulSet
 metadata:
-  namespace: morgan-elk
+  namespace: efk
   name: elasticsearch-data
   labels:
     app: elasticsearch
@@ -56,7 +56,7 @@ spec:
             fieldRef:
               fieldPath: metadata.name
         - name: "cluster.name"
-          value: "morgan-elk"
+          value: "efk"
         - name: node.master
           value: "false"
         - name: node.ingest
@@ -70,7 +70,7 @@ spec:
         - name: network.host
           value: 0.0.0.0
         - name: discovery.zen.ping.unicast.hosts
-          value: "es-master-transport.morgan-elk.svc.cluster.local"		  
+          value: "es-master-transport.efk.svc.cluster.local"		  
         - name: "ES_JAVA_OPTS"
           value: "-Xms3G -Xmx3G"
         ports:
