@@ -24,6 +24,8 @@ spec:
         env:
           - name:  FLUENT_ELASTICSEARCH_HOSTS
             value: "http://elastic:elastic@es-master-http:9200"
+          - name:  FLUENT_ELASTICSEARCH_RELOAD_CONNECTIONS
+            value: "false"
           - name: FLUENT_UID
             value: "0"
           - name: FLUENT_ELASTICSEARCH_USER
